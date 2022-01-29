@@ -24,7 +24,7 @@ Compiler( 'Compiler-x64' )
                   '$Root$\amd64\c1xx.dll',
                   //'$Root$\amd64\c1xxast.dll',
                   '$Root$\amd64\c2.dll',
-                  '$Root$\amd64\1033\clui.dll'
+                  //'$Root$\amd64\1033\clui.dll'
                   '$Root$\msobj140.dll'
                   '$Root$\mspdb140.dll'
                   '$Root$\mspdbsrv.exe'
@@ -80,18 +80,19 @@ Compiler( 'Compiler-x64' )
                       + ' /I"$VSBasePath$/VC/include/"'
 //                      + ' /I"$WindowsSDKBasePath$/include/um"'
 //                      + ' /I"$WindowsSDKBasePath$/include/shared"'
-                      + ' /I"$WindowsSDKBasePath10$/include/ucrt"'
+                      + ' /I"$WindowsSDKBasePath10$/Include/10.0.19041.0/ucrt"'
   .CompilerOptions    + .BaseIncludePaths
   .PCHOptions         + .BaseIncludePaths
 
-  .WindowsLibPaths    = '$WindowsSDKBasePath$/lib/winv6.3/um'
-  .WindowsLibPaths10  = '$WindowsSDKBasePath10$/lib/winv10.0/ucrt'
+  .WindowsLibPaths    = '$WindowsSDKBasePath$/Lib/winv6.3/um'
+  .WindowsLibPaths10  = '$WindowsSDKBasePath10$/Lib/10.0.19041.0/ucrt'
+  //.WindowsLibPaths10  = '$WindowsSDKBasePath10$/Lib/winv10.0/ucrt'
 
   .UseExceptions      = ' /EHsc'
 ]
 // X64
 //------------------------------------------------------------------------------
-.X64BaseConfig = 
+.X64BaseConfig =
 [
   Using( .MSVCBaseConfig )
   .ToolsBasePath      = '$VSBasePath$\VC\bin\amd64'
@@ -112,9 +113,9 @@ Compiler( 'Compiler-x64' )
   Using( .X64BaseConfig )
   .Config             = 'Debug'
   .CompilerOptions    + ' /DDEBUG /DPROFILING_ENABLED'
-                      + .CompilerDebugOptimizations             
+                      + .CompilerDebugOptimizations
   .PCHOptions         + ' /DDEBUG /DPROFILING_ENABLED'
-                      + .CompilerDebugOptimizations             
+                      + .CompilerDebugOptimizations
   .LibrarianOptions   + .LibrarianDebugOptimizations
   .LinkerOptions      + .LinkerDebugOptimizations
 ]
@@ -131,8 +132,8 @@ Compiler( 'Compiler-x64' )
   .CompilerOptionsDeoptimized         = '$CompilerOptions$ /Od'
   .PCHOptionsDeoptimized              = '$PCHOptions$ /Od'
 
-  .CompilerOptions    + .CompilerReleaseOptimizations             
-  .PCHOptions         + .CompilerReleaseOptimizations             
+  .CompilerOptions    + .CompilerReleaseOptimizations
+  .PCHOptions         + .CompilerReleaseOptimizations
   .LibrarianOptions   + .LibrarianReleaseOptimizations
   .LinkerOptions      + .LinkerReleaseOptimizations
 ]
@@ -158,7 +159,7 @@ Compiler( 'Compiler-x64' )
 //------------------------------------------------------------------------------
 // VisualStudio Project Generation
 //------------------------------------------------------------------------------
-.ProjectCommon = 
+.ProjectCommon =
 [
   .ProjectBuildCommand      = 'cd ^$(SolutionDir)\..\ &amp; fbuild -vs -dist -cache ^$(ProjectName)-^$(Configuration)'
   .ProjectRebuildCommand    = 'cd ^$(SolutionDir)\..\ &amp; fbuild -vs -dist -cache -clean ^$(ProjectName)-^$(Configuration)'
@@ -255,6 +256,6 @@ Alias( 'proj' )
 {
   .Targets    = { 'All-proj',
             'Core-proj',
-            'App-proj' 
+            'App-proj'
             }
 }
